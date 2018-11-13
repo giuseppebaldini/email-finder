@@ -1,0 +1,22 @@
+4 COMPONENTS
+
+(3) 	First			/	First 	F
+(4) 	Delimitator		/	.	_	-
+(3) 	Last			/ 	Last	L
+(3) 	[Optional] Middle 		/	Middle	M
+
+16 OPTIONS 
+
+(2)	First / F
+(2)	Last / L
+(4)	First + D + L
+(4)	F + D + Last
+(4)	First + D + Last
+
+OPTIONS (with Middle)
+
+(1) 	First + M + Last
+(1)	First + Middle + Last
+(1)	First + Middle
+(1) 	First + M
+
