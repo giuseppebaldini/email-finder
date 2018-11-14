@@ -7,6 +7,9 @@
 
 import re
 import sys
+import socket
+import smtplib
+import dns.resolver
 
 # Collect first name, last name, domain
 try:
@@ -55,7 +58,7 @@ regex_check(domain_regex, domain_name)
 
 # List combinations from components
 
-def email_list(first, last, domain):
+def formats(first, last, domain):
     list = []
 
     list.append(first + '@' + domain)                    # first@example.com
@@ -64,7 +67,7 @@ def email_list(first, last, domain):
     list.append(first[0] + '.' + last + '@' + domain)    # f.last@example.com
     list.append(first[0] + '_' + last + '@' + domain)    # f_last@example.com
     list.append(first[0] + '-' + last + '@' + domain)    # f-last@example.com
-    list.append(first[0] + '-' + last + '@' + domain)    # first@example.com
+    list.append(first + '@' + domain)                    # first@example.com
     list.append(first + last + '@' + domain)             # firstlast@example.com
     list.append(first + '.' + last + '@' + domain)       # first.last@example.com
     list.append(first + '_' + last + '@' + domain)       # first_last@example.com
@@ -83,9 +86,41 @@ def email_list(first, last, domain):
     return(list)
 
 # Find combinations for given input
-email_list = email_list(first_name, last_name, domain_name)
+format_list = formats(first_name, last_name, domain_name)
 
-# TODO: Validate them one by one
+# Verify them one by one
+def verify_email(list, domain):
+    for email in list:
+        try:
+            records = dns.resolver.query(domain, 'MX')
+        except (dns.resolver.NXDOMAIN, dns.resolver.NoAnswer):
+            print('DNS query could not be performed.')
+            quit()
 
+        mx_record = records[0].exchange
+        mx = str(mx_record)
+
+        local_host = socket.gethostname()
+
+        smtp_server = smtplib.SMTP()
+        smtp_server.connect(mx)
+        smtp_server.helo(local_host)
+        smtp_server.mail(email)
+        code, message = smtp_server.rcpt(email)
+
+        try:
+            smtp_server.quit()
+        except smtplib.SMTPServerDisconnected:
+            print('Server disconnected. Verification could not be performed.')
+            quit()
+
+        valid_addresses = []
+
+        if code == 250:
+            print(email + '  OK')
+        else:
+            print('No valid email address found.')
+
+verify_email(format_list, domain_name)
 
 # TODO: If all are valid, give a catch-all warning
