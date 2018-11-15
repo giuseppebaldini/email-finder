@@ -2,7 +2,7 @@
 
 # Email finder using Python
 # (1) Create list of possible addresses given name and domain
-# (2) Check list using validate_email module
+# (2) Verify whether email addresses exists
 # (3) Return valid addresses
 
 import re
@@ -114,12 +114,10 @@ def verify_email(list, domain):
             print('Server disconnected. Verification could not be performed.')
             quit()
 
-        valid_addresses = []
-
         if code == 250:
             print(email + '  OK')
         else:
-            print('No valid email address found.')
+            print('-')
 
 verify_email(format_list, domain_name)
 
