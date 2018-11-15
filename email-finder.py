@@ -9,6 +9,7 @@ import re
 import sys
 import socket
 import smtplib
+import pyperclip
 import dns.resolver
 
 # Collect first name, last name, domain
@@ -61,7 +62,6 @@ regex_check(domain_regex, domain_name)
 def formats(first, last, domain):
     list = []
 
-    list.append(first + '@' + domain)                    # first@example.com
     list.append(first[0] + '@' + domain)                 # f@example.com
     list.append(first[0] + last + '@' + domain)          # flast@example.com
     list.append(first[0] + '.' + last + '@' + domain)    # f.last@example.com
@@ -89,7 +89,10 @@ def formats(first, last, domain):
 format_list = formats(first_name, last_name, domain_name)
 
 # Verify them one by one
-def verify_email(list, domain):
+def verify(list, domain):
+
+    valid = []
+
     for email in list:
         try:
             records = dns.resolver.query(domain, 'MX')
@@ -115,10 +118,23 @@ def verify_email(list, domain):
             quit()
 
         if code == 250:
-            print(email + '  OK')
+            valid.append(email)
         else:
-            print('-')
+            continue
 
-verify_email(format_list, domain_name)
+    return(valid)
 
-# TODO: If all are valid, give a catch-all warning
+valid_list = verify(format_list, domain_name)
+
+def return_valid(valid_addresses, possible_combinations):
+    if len(valid_list) == 1:
+        print('Email address found and copied to clipboard: ' + valid_list[0])
+        pyperclip.copy(valid_list[0])
+    elif len(valid_list) == len(format_list):
+        print('Catch-all server. Verification not possible.')
+    else:
+        print('Multiple valid email addresses found:')
+        for address in valid_addresses:
+            print(address)
+
+return_valid(valid_list, format_list)
