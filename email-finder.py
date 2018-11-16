@@ -58,7 +58,6 @@ regex_check(name_regex, last_name)
 regex_check(domain_regex, domain_name)
 
 # List combinations from components
-
 def formats(first, last, domain):
     list = []
 
@@ -126,15 +125,17 @@ def verify(list, domain):
 
 valid_list = verify(format_list, domain_name)
 
-def return_valid(valid_addresses, possible_combinations):
-    if len(valid_list) == 1:
-        print('Email address found and copied to clipboard: ' + valid_list[0])
-        pyperclip.copy(valid_list[0])
-    elif len(valid_list) == len(format_list):
+def return_valid(valid, possible):
+    if len(valid) == 0:
+        print('No valid email address found for ' + first_name + ' ' + last_name)
+    elif len(valid) == 1:
+        print('Valid email address found and copied to clipboard: ' + valid[0])
+        pyperclip.copy(valid[0])
+    elif len(valid) == len(possible):
         print('Catch-all server. Verification not possible.')
     else:
         print('Multiple valid email addresses found:')
-        for address in valid_addresses:
+        for address in valid:
             print(address)
 
 return_valid(valid_list, format_list)
