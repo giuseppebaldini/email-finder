@@ -1,22 +1,42 @@
 4 COMPONENTS
 
-(3) 	First			/	First 	F
-(4) 	Delimitator		/	.	_	-
-(3) 	Last			/ 	Last	L
-(3) 	[Optional] Middle 		/	Middle	M
+First			/	First 	F
+Delimitator		/	.	_	-
+Last			/ 	Last	L
+[OPTIONAL] Middle 	/	Middle	M
 
-16 OPTIONS 
+20 FORMATS
 
-(2)	First / F
-(2)	Last / L
-(4)	First + D + L
-(4)	F + D + Last
-(4)	First + D + Last
+1. f
+2. flast
+3. f.last
+4. f_last
+5. f-last
+6. first
+7. firstlast
+8. first.last
+9. first_last
+10. first-last
+11. fl
+12. f.l
+13. f_l
+14. f-l
+15. fistl
+16. first.l
+17. fist_l
+18. fist-l
+19. last
+20. l
 
-OPTIONS (with Middle)
+30 FORMATS (with Middle)
 
-(1) 	First + M + Last
-(1)	First + Middle + Last
-(1)	First + Middle
-(1) 	First + M
-
+21. firstmlast
+22. fistmiddlelast	
+23. firstmiddle
+24. first.middle
+25. first_middle
+26. first-middle
+27. firstm
+28. first.m
+29. first_m
+30. first-m
