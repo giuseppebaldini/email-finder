@@ -143,7 +143,11 @@ def return_valid(valid, possible):
     """
     Return final output comparing the list of valid address to the possible ones:
     1. No valid
+<<<<<<< HEAD
     2. One valid > Copy to clipboard
+=======
+    2. One valid > Copied to clipboard
+>>>>>>> cff3922b7c85e9f7a78e0a76eba81a976aadabb7
     3. All valid > Catch-all server
     4. Multiple valid
     """
