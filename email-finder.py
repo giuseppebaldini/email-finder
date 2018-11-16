@@ -14,24 +14,19 @@ import dns.resolver
 
 # Collect first name, last name, domain
 try:
-    input_first = sys.argv[1]       # First name
+    first_name = sys.argv[1]       # First name
 except IndexError:
-    input_first = input('Please enter first name: > ')
+    first_name = str(input('Please enter first name: > '))
 
 try:
-    input_last = sys.argv[2]        # Last name
+    last_name = sys.argv[2]        # Last name
 except IndexError:
-    input_last = input('Please enter last name: > ')
+    last_name = str(input('Please enter last name: > '))
 
 try:
-    input_domain = sys.argv[3]      # Domain
+    domain_name = sys.argv[3]      # Domain
 except IndexError:
-    input_domain = input('Please enter domain: > ')
-
-# Convert in strings
-first_name = str(input_first)
-last_name = str(input_last)
-domain_name = str(input_domain)
+    domain_name = str(input('Please enter domain: > '))
 
 # Regex for names
 name_regex = re.compile(r'([a-zA-Z])')
@@ -43,11 +38,20 @@ domain_regex = re.compile(r'''(
 )''', re.VERBOSE)
 
 def regex_check(regex, name):
+    """
+    Check proper format of first name, last name and domain using regex.
+    """
     while True:
         match = re.match(regex, name)
         if match == None:
-            print('Name not formatted properly. Please enter it again.')
-            name = str(input('Name: > '))
+            if name == first_name:
+                required = 'first name'
+            elif name == last_name:
+                required = 'last name'
+            elif name == domain_name:
+                required = 'domain name'
+            print('%s is not a valid %s.' % (name, required))
+            name = str(input('Please enter %s again: > ' % required))
             continue
         else:
             break
@@ -57,8 +61,13 @@ regex_check(name_regex, first_name)
 regex_check(name_regex, last_name)
 regex_check(domain_regex, domain_name)
 
-# List combinations from components
 def formats(first, last, domain):
+    """
+    Create a list of possible email formats combining:
+    - First name:          [empty] | Full | Initial |
+    - Delimitator:         [empty] |   .  |    _    |    -
+    - Last name:           [empty] | Full | Initial |
+    """
     list = []
 
     list.append(first[0] + '@' + domain)                 # f@example.com
@@ -84,11 +93,12 @@ def formats(first, last, domain):
 
     return(list)
 
-# Find combinations for given input
-format_list = formats(first_name, last_name, domain_name)
+emails_list = formats(first_name, last_name, domain_name)
 
-# Verify them one by one
 def verify(list, domain):
+    """
+    Create a list of all valid addresses out of a list of emails.
+    """
 
     valid = []
 
@@ -99,11 +109,14 @@ def verify(list, domain):
             print('DNS query could not be performed.')
             quit()
 
+        # Get MX record for the domain
         mx_record = records[0].exchange
         mx = str(mx_record)
 
+        # Get local server hostname
         local_host = socket.gethostname()
 
+        # Connect to SMTP
         smtp_server = smtplib.SMTP()
         smtp_server.connect(mx)
         smtp_server.helo(local_host)
@@ -116,6 +129,7 @@ def verify(list, domain):
             print('Server disconnected. Verification could not be performed.')
             quit()
 
+        # Add to valid addresses list if SMTP response is positive
         if code == 250:
             valid.append(email)
         else:
@@ -123,9 +137,16 @@ def verify(list, domain):
 
     return(valid)
 
-valid_list = verify(format_list, domain_name)
+valid_list = verify(emails_list, domain_name)
 
 def return_valid(valid, possible):
+    """
+    Return final output comparing the list of valid address to the possible ones:
+    1. No valid
+    2. One valid > Copied to clipboard
+    3. All valid > Catch-all server
+    4. Multiple valid
+    """
     if len(valid) == 0:
         print('No valid email address found for ' + first_name + ' ' + last_name)
     elif len(valid) == 1:
@@ -138,4 +159,4 @@ def return_valid(valid, possible):
         for address in valid:
             print(address)
 
-return_valid(valid_list, format_list)
+return_valid(valid_list, emails_list)
