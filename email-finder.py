@@ -40,6 +40,7 @@ domain_regex = re.compile(r'''(
 def regex_check(regex, name):
     """
     Check proper format of first name, last name and domain using regex.
+    If not formatted properly, ask user to input a new first/last/domain name.
     """
     while True:
         match = re.match(regex, name)
@@ -141,7 +142,7 @@ valid_list = verify(emails_list, domain_name)
 
 def return_valid(valid, possible):
     """
-    Return final output comparing the list of valid address to the possible ones:
+    Return final output comparing list of valid addresses to the possible ones:
     1. No valid  > Return message
     2. One valid > Copy to clipboard
     3. All valid > Catch-all server
