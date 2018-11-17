@@ -63,7 +63,7 @@ regex_check(domain_regex, domain_name)
 
 def formats(first, last, domain):
     """
-    Create a list of possible email formats combining:
+    Create a list of 20 possible email formats combining:
     - First name:          [empty] | Full | Initial |
     - Delimitator:         [empty] |   .  |    _    |    -
     - Last name:           [empty] | Full | Initial |
@@ -142,14 +142,10 @@ valid_list = verify(emails_list, domain_name)
 def return_valid(valid, possible):
     """
     Return final output comparing the list of valid address to the possible ones:
-    1. No valid
-<<<<<<< HEAD
+    1. No valid  > Return message
     2. One valid > Copy to clipboard
-=======
-    2. One valid > Copied to clipboard
->>>>>>> cff3922b7c85e9f7a78e0a76eba81a976aadabb7
     3. All valid > Catch-all server
-    4. Multiple valid
+    4. Multiple  > List addresses
     """
     if len(valid) == 0:
         print('No valid email address found for ' + first_name + ' ' + last_name)
