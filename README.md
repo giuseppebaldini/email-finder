@@ -42,7 +42,7 @@ This program can be improved with additional features:
 
 **1. Stronger email verification**
 
-Email verification using existing modules such as [Validate_email](https://github.com/syrusakbary/validate_email/) or APIs such as [Mailgun](https://www.mailgun.com/email-validation) or [MailboxValidator](https://www.mailboxvalidator.com/).
+Email verification using existing modules such as [validate_email](https://github.com/syrusakbary/validate_email/) or APIs such as those of [Mailgun](https://www.mailgun.com/email-validation) or [MailboxValidator](https://www.mailboxvalidator.com/).
 
 **2. Generic emails**
 
