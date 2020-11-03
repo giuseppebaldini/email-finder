@@ -8,7 +8,7 @@ Given <code>first name</code>, <code>last name</code> and <code>domain name</cod
 
 1. Creates list of 20 possible formats given name and domain
 
-2. Verifies whether email addresses exists
+2. Verifies whether email addresses exist
 
 3. Returns valid addresses
 
