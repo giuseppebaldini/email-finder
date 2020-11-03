@@ -2,7 +2,7 @@
 
 # Email finder using Python
 # (1) Create list of possible addresses given name and domain
-# (2) Verify whether email addresses exists
+# (2) Verify whether email addresses exist
 # (3) Return valid addresses
 
 import re
