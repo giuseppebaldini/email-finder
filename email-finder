@@ -16,17 +16,17 @@ import dns.resolver
 try:
     first_name = sys.argv[1]       # First name
 except IndexError:
-    first_name = str(input('Please enter first name: > '))
+    first_name = str(input('First name: '))
 
 try:
     last_name = sys.argv[2]        # Last name
 except IndexError:
-    last_name = str(input('Please enter last name: > '))
+    last_name = str(input('Last name: '))
 
 try:
     domain_name = sys.argv[3]      # Domain
 except IndexError:
-    domain_name = str(input('Please enter domain: > '))
+    domain_name = str(input('Domain: '))
 
 # Regex for names
 name_regex = re.compile(r'([a-zA-Z])')
