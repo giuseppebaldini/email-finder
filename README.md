@@ -1,6 +1,6 @@
 # Email Finder
 
-A Python script to find valid email addresses given a first name, last name and domain.
+A Python script to find valid email addresses from first name, last name and domain.
 
 ### Introduction
 
@@ -14,13 +14,13 @@ Given <code>first name</code>, <code>last name</code> and <code>domain name</cod
 
 ### Dependencies
 
-* [dns.resolver](https://github.com/rthalley/dnspython) (DNS toolkit) <code>pip install dnspython</code>
+* [`dns.resolver`](https://github.com/rthalley/dnspython) (DNS toolkit) <code>pip install dnspython</code>
 
-* [Pyperclip](https://github.com/asweigart/pyperclip) (clipboard functions) <code>pip install pyperclip</code>
+* [`Pyperclip`](https://github.com/asweigart/pyperclip) (clipboard functions) <code>pip install pyperclip</code>
 
 ### Usage
 
-<code>python email-verifier.py [first name] [last name] [domain]  </code>
+<code>python3 email-finder [first name] [last name] [domain]  </code>
 
 Alternatively, if arguments are missing, the script will request user input.
 
@@ -42,7 +42,7 @@ This program can be improved with additional features:
 
 **1. Stronger email verification**
 
-Email verification using existing modules such as [validate_email](https://github.com/syrusakbary/validate_email/) or APIs such as those of [Mailgun](https://www.mailgun.com/email-validation) or [MailboxValidator](https://www.mailboxvalidator.com/).
+Email verification using existing modules such as [`validate_email`](https://github.com/syrusakbary/validate_email/) or APIs such as those of [`Mailgun`](https://www.mailgun.com/email-validation) or [`MailboxValidator`](https://www.mailboxvalidator.com/).
 
 **2. Generic emails**
 
